@@ -1,23 +1,25 @@
+import { Link } from "react-router-dom";
+
 const Sidebar = () => {
     return (
         <aside className="sidebar col-3">
             <h2>Administración</h2>
 
             <nav className="navegacion">
-                <a href="index.html" >
+                <Link to="/" >
                     <i className="fa-solid fa-users-between-lines icon"></i>
                     Clientes
-                </a>
-                
-                <a href="productos.html">
-                <i className="fa-solid fa-boxes-stacked icon"></i>
+                </Link>
+
+                <Link to="/productos">
+                    <i className="fa-solid fa-boxes-stacked icon"></i>
                     Productos
-                </a>
-                
-                <a href="pedidos.html" >
-                <i className="fa-solid fa-book icon"></i>
+                </Link>
+
+                <Link to="/pedidos" >
+                    <i className="fa-solid fa-book icon"></i>
                     Pedidos
-                </a>
+                </Link>
             </nav>
         </aside>
     );
