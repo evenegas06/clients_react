@@ -1,8 +1,17 @@
+import Header from "./components/layouts/Header";
+import Sidebar from "./components/layouts/Sidebar";
+
 function App() {
     return (
         <>
-            <h1>Home</h1>
-            <i className="fa-solid fa-house"></i>
+            <Header />
+            <div className="grid contenedor contenido-principal">
+                <Sidebar />
+
+                <main className="caja-contenido col-9">
+                    {/* TODO: Routing */}
+                </main>
+            </div>
         </>
     );
 }
