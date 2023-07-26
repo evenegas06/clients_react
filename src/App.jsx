@@ -17,8 +17,8 @@ function App() {
                 <main className="caja-contenido col-9">
                     <Routes>
                         <Route path="/" element={<Clients />} />
-                        <Route path="/productos" element={<Products />}/>
-                        <Route path="/pedidos" element={<Orders />}/>
+                        <Route path="/productos" element={<Products />} />
+                        <Route path="/pedidos" element={<Orders />} />
                     </Routes>
                 </main>
             </div>

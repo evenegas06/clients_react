@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-// import axios_instance from "../utils/axios_instance";
-import axios from "axios";
+import axios_instance from "../utils/axios_instance";
+import Client from "../components/Client";
 
 const Clients = () => {
     /* ----- State ----- */
@@ -13,7 +13,7 @@ const Clients = () => {
          */
         const getClients = async () => {
             try {
-                const clients = await axios.get('http://localhost:5000/api/clientes');
+                const clients = await axios_instance.get('/clientes');
                 setClients(clients.data);
             } catch (error) {
                 console.error(error);
@@ -29,7 +29,9 @@ const Clients = () => {
 
             <ul className="listado-clientes">
                 {clients.map((item) => {
-                    console.log(item);
+                    return (
+                        <Client key={item._id} client={item} />
+                    );
                 })}
             </ul>
         </>
