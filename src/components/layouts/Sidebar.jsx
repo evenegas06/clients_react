@@ -7,17 +7,17 @@ const Sidebar = () => {
 
             <nav className="navegacion">
                 <Link to="/" >
-                    <i className="fa-solid fa-users-between-lines icon"></i>
+                    <i className="fa-solid fa-users-between-lines icon-menu"></i>
                     Clientes
                 </Link>
 
                 <Link to="/productos">
-                    <i className="fa-solid fa-boxes-stacked icon"></i>
+                    <i className="fa-solid fa-boxes-stacked icon-menu"></i>
                     Productos
                 </Link>
 
                 <Link to="/pedidos" >
-                    <i className="fa-solid fa-book icon"></i>
+                    <i className="fa-solid fa-book icon-menu"></i>
                     Pedidos
                 </Link>
             </nav>

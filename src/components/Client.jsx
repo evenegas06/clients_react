@@ -16,13 +16,13 @@ const Client = ({ client }) => {
             
             <div className="acciones">
                 <a href="#" className="btn btn-azul">
-                    <i className="fas fa-pen-alt"></i>
-                    Editar Cliente
+                    <i className="fas fa-pen-alt icon-btn"></i>
+                    Editar
                 </a>
 
                 <button type="button" className="btn btn-rojo btn-eliminar">
-                    <i className="fas fa-times"></i>
-                    Eliminar Cliente
+                    <i className="fas fa-times icon-btn"></i>
+                    Eliminar
                 </button>
             </div>
         </li>
