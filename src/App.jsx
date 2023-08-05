@@ -17,15 +17,26 @@ function App() {
 
                 <main className="caja-contenido col-9">
                     <Routes>
-                        <Route path="/" element={<Clients />} />
-                        <Route path="/clientes/nuevo" element={<NewClientForm />} />
-                        <Route path="/productos" element={<Products />} />
-                        <Route path="/pedidos" element={<Orders />} />
+                        <Route
+                            path="/"
+                            element={<Clients />}
+                        />
+                        <Route
+                            path="/clientes/nuevo"
+                            element={<NewClientForm />}
+                        />
+                        <Route
+                            path="/productos"
+                            element={<Products />}
+                        />
+                        <Route
+                            path="/pedidos"
+                            element={<Orders />}
+                        />
                     </Routes>
                 </main>
             </div>
         </BrowserRouter>
     );
 }
-
 export default App;

@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import axios_instance from "../utils/axios_instance";
+
 const NewClientForm = () => {
     /* ----- State ----- */
     const [client, setClient] = useState({
@@ -24,11 +26,44 @@ const NewClientForm = () => {
         });
     };
 
+    /**
+     * Check if all fields are not empty.
+     * 
+     * @returns {boolean}
+     */
+    const validateForm = () => {
+        const attributes = Object.values(client);
+
+        const is_valid = attributes.every((item) => {
+            return item.length > 0;
+        });
+
+        return !is_valid;
+    };
+
+    /**
+     * Send form and add new client.
+     * 
+     * @param {Object} event 
+     */
+    const addNewClient = (event) => {
+        event.preventDefault();
+
+        axios_instance.post('/clientes', client)
+            .then((response) => {
+                if (response.data.code === 11000) {
+                    console.error('El correo ya existe en la base de datos.');
+                } else {
+                    console.log(response.data);
+                }
+            });
+    };
+
     return (
         <>
             <h2>Nuevo cliente</h2>
 
-            <form>
+            <form onSubmit={addNewClient}>
                 <legend>Llena todos los campos</legend>
 
                 <div className="campo">
@@ -86,6 +121,7 @@ const NewClientForm = () => {
                         type="submit"
                         value="Agregar Cliente"
                         className="btn btn-azul"
+                        disabled={validateForm()}
                     />
                 </div>
 

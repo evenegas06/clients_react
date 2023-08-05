@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import axios_instance from "../utils/axios_instance";
-import Client from "../components/Client";
 import { Link } from "react-router-dom";
+
+import Client from "../components/Client";
+
+import axios_instance from "../utils/axios_instance";
 
 const Clients = () => {
     /* ----- State ----- */
