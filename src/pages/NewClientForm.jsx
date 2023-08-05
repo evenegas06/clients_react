@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 import axios_instance from "../utils/axios_instance";
 
@@ -12,6 +14,9 @@ const NewClientForm = () => {
         phone: '',
     });
 
+    /* ----- Hooks ----- */
+    const navigate = useNavigate();
+    
     /**
      * Fill *client state* attributes with the input value.
      * 
@@ -52,10 +57,20 @@ const NewClientForm = () => {
         axios_instance.post('/clientes', client)
             .then((response) => {
                 if (response.data.code === 11000) {
-                    console.error('El correo ya existe en la base de datos.');
+                    Swal.fire({
+                        title: 'Hubo un error',
+                        text: 'El correo ya existe en la base de datos.',
+                        icon: 'error',
+                    });
                 } else {
-                    console.log(response.data);
+                    Swal.fire({
+                        title: 'Cliente agregado',
+                        text: response.data.message,
+                        icon: 'success',
+                    });
                 }
+
+                navigate('/');
             });
     };
 
