@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
 import axios_instance from "../utils/axios_instance";
 
-const NewClientForm = () => {
+const EditClient = () => {
+
     /* ----- State ----- */
     const [client, setClient] = useState({
         name: '',
@@ -17,7 +18,22 @@ const NewClientForm = () => {
 
     /* ----- Hooks ----- */
     const navigate = useNavigate();
-    
+    const { client_id } = useParams();
+
+    useEffect(() => {
+        /**
+         * Get client data from API.
+         */
+        const getClientData = async () => {
+            const client = await axios_instance.get(`/clientes/${client_id}`);
+
+            delete client.data.__v;
+            setClient(client.data);
+        };
+
+        getClientData();
+    }, []);
+
     /**
      * Fill *client state* attributes with the input value.
      * 
@@ -47,39 +63,11 @@ const NewClientForm = () => {
         return !is_valid;
     };
 
-    /**
-     * Send form and add new client.
-     * 
-     * @param {Object} event 
-     */
-    const addNewClient = (event) => {
-        event.preventDefault();
-
-        axios_instance.post('/clientes', client)
-            .then((response) => {
-                if (response.data.code === 11000) {
-                    Swal.fire({
-                        title: 'Hubo un error',
-                        text: 'El correo ya existe en la base de datos.',
-                        icon: 'error',
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Cliente agregado',
-                        text: response.data.message,
-                        icon: 'success',
-                    });
-                }
-
-                navigate('/');
-            });
-    };
-
     return (
         <>
-            <h2>Nuevo cliente</h2>
+            <h2>Editar cliente</h2>
 
-            <form onSubmit={addNewClient}>
+            <form>
                 <legend>Llena todos los campos</legend>
 
                 <div className="campo">
@@ -88,6 +76,7 @@ const NewClientForm = () => {
                         type="text"
                         name="name"
                         placeholder="Nombre Cliente"
+                        value={client.name}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -98,6 +87,7 @@ const NewClientForm = () => {
                         type="text"
                         name="last_name"
                         placeholder="Apellido Cliente"
+                        value={client.last_name}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -108,6 +98,7 @@ const NewClientForm = () => {
                         type="text"
                         name="company"
                         placeholder="Empresa Cliente"
+                        value={client.company}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -118,6 +109,7 @@ const NewClientForm = () => {
                         type="email"
                         name="email"
                         placeholder="Email Cliente"
+                        value={client.email}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -128,6 +120,7 @@ const NewClientForm = () => {
                         type="tel"
                         name="phone"
                         placeholder="Teléfono Cliente"
+                        value={client.phone}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -135,7 +128,7 @@ const NewClientForm = () => {
                 <div className="enviar">
                     <input
                         type="submit"
-                        value="Agregar Cliente"
+                        value="Guardar Cambios"
                         className="btn btn-azul"
                         disabled={validateForm()}
                     />
@@ -145,4 +138,4 @@ const NewClientForm = () => {
         </>
     );
 };
-export default NewClientForm;
+export default EditClient;

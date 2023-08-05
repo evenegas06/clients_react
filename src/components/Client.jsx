@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Client = ({ client }) => {
     return (
         <li className="cliente">
@@ -15,10 +17,10 @@ const Client = ({ client }) => {
             </div>
             
             <div className="acciones">
-                <a href="#" className="btn btn-azul">
+                <Link to={`/clientes/editar/${client._id}`} className="btn btn-azul">
                     <i className="fas fa-pen-alt icon-btn"></i>
                     Editar
-                </a>
+                </Link>
 
                 <button type="button" className="btn btn-rojo btn-eliminar">
                     <i className="fas fa-times icon-btn"></i>

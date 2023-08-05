@@ -7,6 +7,7 @@ import NewClientForm from "./pages/NewClientForm";
 
 import Header from "./components/layouts/Header";
 import Sidebar from "./components/layouts/Sidebar";
+import EditClient from "./pages/EditClient";
 
 function App() {
     return (
@@ -24,6 +25,10 @@ function App() {
                         <Route
                             path="/clientes/nuevo"
                             element={<NewClientForm />}
+                        />
+                        <Route
+                            path="clientes/editar/:client_id"
+                            element={<EditClient />}
                         />
                         <Route
                             path="/productos"
