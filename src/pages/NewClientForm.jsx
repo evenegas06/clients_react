@@ -140,7 +140,6 @@ const NewClientForm = () => {
                         disabled={validateForm()}
                     />
                 </div>
-
             </form>
         </>
     );

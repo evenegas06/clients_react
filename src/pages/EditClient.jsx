@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import axios_instance from "../utils/axios_instance";
 
 const EditClient = () => {
-
     /* ----- State ----- */
     const [client, setClient] = useState({
         name: '',
@@ -133,7 +132,6 @@ const EditClient = () => {
                         disabled={validateForm()}
                     />
                 </div>
-
             </form>
         </>
     );
