@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import axios_instance from '../utils/axios_instance';
 import Product from './Product';
+import Spinner from '../components/Spinner';
 
 const Products = () => {
 	/* ----- State ----- */
@@ -20,6 +21,11 @@ const Products = () => {
 
 		getProducts();
 	}, [products]);
+
+    // Spinner
+	if (!products.length) {
+		return <Spinner />
+	}
 
 	return (
 		<>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Client from '../components/Client';
-
 import axios_instance from '../utils/axios_instance';
+import Client from '../components/Client';
+import Spinner from '../components/Spinner';
 
 const Clients = () => {
 	/* ----- State ----- */
@@ -25,6 +25,11 @@ const Clients = () => {
 
 		getClients();
 	}, [clients]);
+
+	// Spinner
+	if (!clients.length) {
+		return <Spinner />;
+	}
 
 	return (
 		<>
