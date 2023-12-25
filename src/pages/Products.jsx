@@ -10,13 +10,16 @@ const Products = () => {
 
 	/* ----- Hooks ----- */
 	useEffect(() => {
+		/**
+		 * Get all products by API.
+		 */
 		const getProducts = async () => {
 			const products = await axios_instance.get('/productos');
 			setProducts(products.data);
 		};
 
 		getProducts();
-	}, []);
+	}, [products]);
 
 	return (
 		<>

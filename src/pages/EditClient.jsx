@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
-import axios_instance from "../utils/axios_instance";
+import axios_instance from '../utils/axios_instance';
 
 const EditClient = () => {
 	/* ----- State ----- */
 	const [client, setClient] = useState({
-		name: "",
-		last_name: "",
-		company: "",
-		email: "",
-		phone: "",
+		name: '',
+		last_name: '',
+		company: '',
+		email: '',
+		phone: '',
 	});
 
 	/* ----- Hooks ----- */
@@ -56,19 +56,19 @@ const EditClient = () => {
 		axios_instance.put(`/clientes/${client_id}`, client).then((response) => {
 			if (response.data.code === 11000) {
 				Swal.fire({
-					title: "Hubo un error",
-					text: "El correo ya existe en la base de datos.",
-					icon: "error",
+					title: 'Hubo un error',
+					text: 'El correo ya existe en la base de datos.',
+					icon: 'error',
 				});
 			} else {
 				Swal.fire({
-					title: "Correcto",
-					text: "Se actualizó correctamente.",
-					icon: "success",
+					title: 'Correcto',
+					text: 'Se actualizó correctamente.',
+					icon: 'success',
 				});
 			}
 
-			navigate("/");
+			navigate('/');
 		});
 	};
 

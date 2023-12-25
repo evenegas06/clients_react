@@ -3,29 +3,34 @@ import Swal from 'sweetalert2';
 
 import axios_instance from '../utils/axios_instance';
 
-const deleteClient = (id) => {
-	Swal.fire({
-		title: '¿Estas seguro de eliminar este cliente?',
-		text: 'Un cliente eliminado no se puede recuperar.',
-		icon: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: 'Si, ¡eliminar!',
-	}).then((result) => {
-		if (result.isConfirmed) {
-			axios_instance.delete(`/clientes/${id}`).then((response) => {
-				Swal.fire({
-					title: '¡Eliminado!',
-					text: response.data.message,
-					icon: 'success',
-				});
-			});
-		}
-	});
-};
-
 const Client = ({ client }) => {
+	/**
+	 * Delete client by API REST.
+	 * 
+	 * @param {String} id
+	 */
+	const deleteClient = (id) => {
+		Swal.fire({
+			title: '¿Estas seguro de eliminar este cliente?',
+			text: 'Un cliente eliminado no se puede recuperar.',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, ¡eliminar!',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				axios_instance.delete(`/clientes/${id}`).then((response) => {
+					Swal.fire({
+						title: '¡Eliminado!',
+						text: response.data.message,
+						icon: 'success',
+					});
+				});
+			}
+		});
+	};
+
 	return (
 		<li className="cliente">
 			<div className="info-cliente">
