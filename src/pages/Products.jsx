@@ -31,7 +31,7 @@ const Products = () => {
 		<>
 			<h2>Products</h2>
 			<Link
-				to={'/producto/nuevo'}
+				to={'/productos/nuevo'}
 				className="btn btn-verde nvo-cliente"
 			>
 				{' '}
