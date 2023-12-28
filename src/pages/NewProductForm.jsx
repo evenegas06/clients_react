@@ -11,6 +11,7 @@ const NewProductForm = () => {
 		name: '',
 		price: 0,
 	});
+
 	const [image, setImage] = useState(null);
 
 	/* ----- Hooks ----- */

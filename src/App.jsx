@@ -43,7 +43,7 @@ function App() {
 							element={<NewProductForm />}
 						/>
 						<Route
-							path="/productos/nuevo/:producto_id"
+							path="/productos/editar/:product_id"
 							element={<EditProduct />}
 						/>
 						<Route
