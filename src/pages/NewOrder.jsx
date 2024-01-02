@@ -2,25 +2,69 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import axios_instance from '../utils/axios_instance';
+import SearchProductForm from '../components/SearchProductForm';
+import Swal from 'sweetalert2';
+import AmountProductsFrom from '../components/AmountProductsFrom';
 
 const NewOrder = () => {
-    /* ----- State ----- */
-    const [client, setClient] = useState({});
+	/* ----- State ----- */
+	const [client, setClient] = useState({});
+	const [search, setSearch] = useState('');
+	const [products_list, setProductsList] = useState([]);
+
 	/* ----- Hooks ----- */
 	const { client_id } = useParams();
 
 	useEffect(() => {
-        /**
-         * Get client info by API.
-         */
-        const getClientData = async () => {
-            const data = await axios_instance.get(`/clientes/${client_id}`);
+		/**
+		 * Get client info by API.
+		 */
+		const getClientData = async () => {
+			const data = await axios_instance.get(`/clientes/${client_id}`);
 			console.log(data);
-            setClient(data.data);
-        };
+			setClient(data.data);
+		};
 
-        getClientData();
-    }, []);
+		getClientData();
+	}, []);
+
+	/**
+	 * Filter products by input search.
+	 *
+	 * @param {Object} event
+	 */
+	const searchProduct = async (event) => {
+		event.preventDefault();
+
+		const search_result = await axios_instance.post(
+			`/productos/busqueda/${search}`
+		);
+
+		if (search_result.data[0]) {
+			console.log(search_result);
+
+			let product = search_result.data[0];
+
+			product.product_id = search_result.data[0]._id;
+			product.amount = 0;
+
+			setProductsList([...products_list, product]);
+		} else {
+			Swal.fire({
+				type: 'error',
+				title: 'Sin resultados',
+				text: 'No hay resultados para la búsqueda realizada.',
+			});
+		}
+	};
+
+	/**
+	 * Read input and save into state.
+	 * @param {Object} event
+	 */
+	const readSearchInput = (event) => {
+		setSearch(event.target.value);
+	};
 
 	return (
 		<>
@@ -32,106 +76,33 @@ const NewOrder = () => {
 				<p>{`Teléfono: ${client.phone}`}</p>
 			</div>
 
-			<form>
-				<legend>Busca un Producto y agrega una cantidad</legend>
+			<SearchProductForm
+				searchProduct={searchProduct}
+				readSearchInput={readSearchInput}
+			/>
 
-				<div className="campo">
-					<label>Productos:</label>
-					<input
-						type="text"
-						placeholder="Nombre Productos"
-						name="productos"
-					/>
-				</div>
+			<ul className="resumen">
+				{products_list.map((item, index) => {
+					return <AmountProductsFrom key={index} />;
+				})}
+			</ul>
 
-				<ul className="resumen">
-					<li>
-						<div className="texto-producto">
-							<p className="nombre">Macbook Pro</p>
-							<p className="precio">$250</p>
-						</div>
-						<div className="acciones">
-							<div className="contenedor-cantidad">
-								<i className="fas fa-minus"></i>
-								<input
-									type="text"
-									name="cantidad"
-								/>
-								<i className="fas fa-plus"></i>
-							</div>
-							<button
-								type="button"
-								className="btn btn-rojo"
-							>
-								<i className="fas fa-minus-circle"></i>
-								Eliminar Producto
-							</button>
-						</div>
-					</li>
-					<li>
-						<div className="texto-producto">
-							<p className="nombre">Macbook Pro</p>
-							<p className="precio">$250</p>
-						</div>
-						<div className="acciones">
-							<div className="contenedor-cantidad">
-								<i className="fas fa-minus"></i>
-								<input
-									type="text"
-									name="cantidad"
-								/>
-								<i className="fas fa-plus"></i>
-							</div>
-							<button
-								type="button"
-								className="btn btn-rojo"
-							>
-								<i className="fas fa-minus-circle"></i>
-								Eliminar Producto
-							</button>
-						</div>
-					</li>
-					<li>
-						<div className="texto-producto">
-							<p className="nombre">Macbook Pro</p>
-							<p className="precio">$250</p>
-						</div>
-						<div className="acciones">
-							<div className="contenedor-cantidad">
-								<i className="fas fa-minus"></i>
-								<input
-									type="text"
-									name="cantidad"
-								/>
-								<i className="fas fa-plus"></i>
-							</div>
-							<button
-								type="button"
-								className="btn btn-rojo"
-							>
-								<i className="fas fa-minus-circle"></i>
-								Eliminar Producto
-							</button>
-						</div>
-					</li>
-				</ul>
-				<div className="campo">
-					<label>Total:</label>
-					<input
-						type="number"
-						name="precio"
-						placeholder="Precio"
-						readOnly="readonly"
-					/>
-				</div>
-				<div className="enviar">
-					<input
-						type="submit"
-						className="btn btn-azul"
-						value="Agregar Pedido"
-					/>
-				</div>
-			</form>
+			<div className="campo">
+				<label>Total:</label>
+				<input
+					type="number"
+					name="precio"
+					placeholder="Precio"
+					readOnly="readonly"
+				/>
+			</div>
+			<div className="enviar">
+				<input
+					type="submit"
+					className="btn btn-azul"
+					value="Agregar Pedido"
+				/>
+			</div>
 		</>
 	);
 };
