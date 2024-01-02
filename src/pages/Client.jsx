@@ -6,7 +6,7 @@ import axios_instance from '../utils/axios_instance';
 const Client = ({ client }) => {
 	/**
 	 * Delete client by API REST.
-	 * 
+	 *
 	 * @param {String} id
 	 */
 	const deleteClient = (id) => {
@@ -49,6 +49,14 @@ const Client = ({ client }) => {
 				>
 					<i className="fas fa-pen-alt icon-btn"></i>
 					Editar
+				</Link>
+
+				<Link
+					to={`/pedidos/nuevo/${client._id}`}
+					className="btn btn-amarillo"
+				>
+					<i className="fas fa-plus icon-btn"></i>
+					Nuevo pedido
 				</Link>
 
 				<button

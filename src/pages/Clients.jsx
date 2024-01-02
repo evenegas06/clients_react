@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios_instance from '../utils/axios_instance';
-import Client from '../components/Client';
+import Client from './Client';
 import Spinner from '../components/Spinner';
 
 const Clients = () => {

@@ -12,6 +12,7 @@ import NewProductForm from './pages/NewProductForm';
 import EditProduct from './pages/EditProduct';
 
 import Orders from './pages/Orders';
+import NewOrder from './pages/NewOrder';
 
 function App() {
 	return (
@@ -49,6 +50,11 @@ function App() {
 						<Route
 							path="/pedidos"
 							element={<Orders />}
+						/>
+
+						<Route
+							path="/pedidos/nuevo/:client_id"
+							element={<NewOrder />}
 						/>
 					</Routes>
 				</main>
